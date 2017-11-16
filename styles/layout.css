@@ -32,8 +32,8 @@ img{margin:0; padding:0; border:none; line-height:normal; vertical-align:middle;
 address, article, aside, figcaption, figure, footer, header, nav, section{display:block; margin:0; padding:0;}
 
 q{display:block; padding:0 10px 8px 10px; color:#979797; background-color:#ECECEC; font-style:italic; line-height:normal;}
-q:before{content:'“ '; font-size:26px;}
-q:after{content:' „'; font-size:26px; line-height:0;}
+q:before{content:'ï¿½ '; font-size:26px;}
+q:after{content:' ï¿½'; font-size:26px; line-height:0;}
 
 /* ----------------------------------------------Wrapper-------------------------------------*/
 
@@ -48,7 +48,7 @@ div.wrapper{display:block; width:100%; margin:0; padding:0; text-align:left;}
 
 /*----------------------------------------------Generalise-------------------------------------*/
 
-#header, #container, #footer, #copyright{display:block; width:960px; margin:0 auto;}
+#header, #container, #footer, #copyright{display:block; width:1260px; margin:0 auto;}
 
 nav ul{margin:0; padding:0; list-style:none;}
 
@@ -57,8 +57,8 @@ h1, h2, h3, h4, h5, h6{margin:0; padding:0; font-size:32px; font-weight:normal; 
 address{font-style:normal;}
 
 blockquote, q{display:block; padding:8px 10px; color:#979797; background-color:#ECECEC; font-style:italic; line-height:normal;}
-blockquote:before, q:before{content:'“ '; font-size:26px;}
-blockquote:after, q:after{content:' „'; font-size:26px; line-height:0;}
+blockquote:before, q:before{content:'ï¿½ '; font-size:26px;}
+blockquote:after, q:after{content:' ï¿½'; font-size:26px; line-height:0;}
 
 form, fieldset, legend{margin:0; padding:0; border:none;}
 legend{display:none;}
@@ -90,39 +90,23 @@ input, textarea, select{font-size:12px; font-family:Georgia,"Times New Roman",Ti
 #header nav ul{padding:0 20px;}
 #header nav li{display:inline; margin-right:25px; text-transform:uppercase;}
 #header nav li.last{margin-right:0;}
-#header nav li a{color:#C0BAB6; background-color:#232323;}
-#header nav li a:hover{color:#FF9900; background-color:#232323;}
+#header nav li button{color:#C0BAB6; background-color:#232323; border: none; cursor: pointer; padding: 10px 0px;}
+#header nav li button:hover{color:#FF9900; background-color:#232323;}
 
 /*----------------------------------------------Content Area-------------------------------------*/
 
 #container{padding:30px 0;}
-#container section{display:block; width:100%; margin:0 0 30px 0; padding:0;}
+#container section{display:block; margin:0 0 30px 0; padding:0;}
 #container .last{margin:0;}
 #container .more{text-align:right;}
-
-/* ------Slider-----*/
-
-#container #slider{}
 
 /* ------Main Content-----*/
 
 #container #homepage{display:block; width:100%; line-height:1.8em;}
-
-#container #homepage #services{}
-#container #homepage #services article{}
-#container #homepage #services article figure{}
 #container #homepage #services article figure img{margin:0 0 15px 0; padding:4px; border:1px solid #D6D6D6;}
-#container #homepage #services article figure figcaption{}
 #container #homepage #services article figure h2{font-size:14px; font-weight:bold;}
-#container #homepage #services article figure footer{}
-
-#container #homepage #intro{}
-#container #homepage #intro article{}
-#container #homepage #intro article figure{}
 #container #homepage #intro article figure img{float:right; margin:0 0 10px 0; padding:4px; border:1px solid #D6D6D6;}
 #container #homepage #intro article figure figcaption{float:left; width:460px;}
-#container #homepage #intro article figure h2{}
-#container #homepage #intro article figure footer{}
 
 /*----------------------------------------------Footer-------------------------------------*/
 
@@ -140,4 +124,7 @@ input, textarea, select{font-size:12px; font-family:Georgia,"Times New Roman",Ti
 /*The code from the template ends here*/
 
 /*The code for the game starts here*/
-.box{display: inline-block; margin: 25px; padding: 25px; width: 80px; height: 80px; border: 2px solid black;}
+.gameBox {display: inline-block; margin: 25px; padding: 25px; width: 80px; height: 80px; border: 2px solid black;}
+.stepBox {display: inline-block; font-size: 25px; margin: 5px;}
+section#services {display: inline-block; margin-left: 35px;}
+section#program-steps {display: inline-block; width: 250px; vertical-align: top;}
