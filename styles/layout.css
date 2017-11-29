@@ -128,3 +128,4 @@ input, textarea, select{font-size:12px; font-family:Georgia,"Times New Roman",Ti
 .stepBox {display: inline-block; font-size: 25px; margin: 5px;}
 section#services {display: inline-block; margin-left: 35px;}
 section#program-steps {display: inline-block; width: 250px; vertical-align: top;}
+section#points {display: inline-block; width: 230px; text-align: center; vertical-align: 500px; font-size: 50px; color: #ff0000}

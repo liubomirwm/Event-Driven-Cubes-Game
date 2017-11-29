@@ -1,9 +1,15 @@
 //empty = 0; wall = 1; cube = 2; finish = 3; 4 = fail
+const empty = "empty";
+const wall = "wall";
+const cube = "cube";
+const finish = "finish";
+const fail = "fail";
+
 var sampleGameModel = [
-	[2, 0, 0, 1],
-	[1, 1, 0, 0],
-	[3, 0, 1, 0],
-	[1, 0, 0, 0]
+	[cube, empty, empty, wall],
+	[wall, wall, empty, empty],
+	[finish, empty, wall, empty],
+	[wall, empty, empty, empty]
 ];
 var program = [];
 var programCounter = 0;
@@ -24,19 +30,19 @@ function renderGame(){
 			newElement.classList.add('gameBox');
 			newElement.innerHTML = '&nbsp;';
 			switch(sampleGameModel[i][j]){
-				case 0:
+				case empty:
 					newElement.style.backgroundColor = '#ffffff';
 					break;
-				case 1:
+				case wall:
 					newElement.style.backgroundColor = '#000000';
 					break;
-				case 2:
+				case cube:
 					newElement.style.backgroundColor = '#ffff00';
 					break;
-				case 3:
+				case finish:
 					newElement.style.backgroundColor = '#33cc00';
 					break;
-				case 4:
+				case fail:
 					newElement.style.backgroundColor = '#ff0000';
 			}
 			gameBoxContainer.appendChild(newElement);
@@ -82,11 +88,10 @@ var rightButton = document.getElementById("stepButtonRight");
 rightButton.addEventListener("click" , function() { addProgramStep("Right"); });
 
 function startGame(){
-	debugger;
 	var shouldBreak = false;
 	for(var i = 0; i < sampleGameModel.length; i++){
 		for(var j = 0; j < sampleGameModel[i].length; j++){
-			if(sampleGameModel[i][j] === 2){
+			if(sampleGameModel[i][j] === cube){
 				currPos.row = i;
 				currPos.col = j;
 				shouldBreak = true;
@@ -135,9 +140,9 @@ function checkNextMove(nextMove) {
 				break;
 		}
 
-		if (nextMoveValue === 1) {
+		if (nextMoveValue === wall) {
 			nextMoveStatus = "wall";
-		} else if (nextMoveValue === 3) {
+		} else if (nextMoveValue === finish) {
 			nextMoveStatus = "win";
 		}
 	}
@@ -145,7 +150,7 @@ function checkNextMove(nextMove) {
 }
 
 function updatePosition() {//updates and increments program counter and calls rendergame
-		sampleGameModel[currPos.row][currPos.col] = 0;
+		sampleGameModel[currPos.row][currPos.col] = empty;
 		switch(program[programCounter]){
 			case "Up":
 				currPos.row--;
@@ -161,24 +166,22 @@ function updatePosition() {//updates and increments program counter and calls re
 				break;
 		//if programCounter == program.length don't call again
 		}
-		if (sampleGameModel[currPos.row][currPos.col] === 1) {
-			sampleGameModel[currPos.row][currPos.col] = 4;
-		} else if (sampleGameModel[currPos.row][currPos.col] === 0) {
-			sampleGameModel[currPos.row][currPos.col] = 2;
+		if (sampleGameModel[currPos.row][currPos.col] === wall) {
+			sampleGameModel[currPos.row][currPos.col] = fail;
+		} else if (sampleGameModel[currPos.row][currPos.col] === empty) {
+			sampleGameModel[currPos.row][currPos.col] = cube;
 		}
 		programCounter++;
 	}
 
 function playTurn(){
-	if ((programCounter + 1) === program.length) {
-		debugger;
-	}
-	console.log(programCounter);
 	var nextMoveStatus = checkNextMove(program[programCounter]);
 	if (nextMoveStatus === "validMove") {
 		updatePosition();
 		setTimeout(playTurn, 1000);
 		renderGame();
+		var event = new CustomEvent("validMove", {detail: programCounter});
+		document.dispatchEvent(event);
 	} else if (nextMoveStatus === "wall") {
 		updatePosition();
 		renderGame();
@@ -195,5 +198,44 @@ function playTurn(){
 	}
 }
 
+function checkPressedKey(event){
+	switch(event.code){
+		case "ArrowDown":
+			addProgramStep("Down");
+			event.preventDefault();
+			break;
+		case "ArrowUp":
+			addProgramStep("Up");
+			event.preventDefault();
+			break;
+		case "ArrowLeft":
+			addProgramStep("Left");
+			event.preventDefault();
+			break;
+		case "ArrowRight":
+			addProgramStep("Right");
+			event.preventDefault();
+			break;
+		case "Enter":
+			startGame();
+			event.preventDefault();
+	}
+}
+
 var playButton = document.getElementById("playButton");
 playButton.addEventListener("click", startGame);
+document.addEventListener("validMove", updateScore);
+document.addEventListener("keydown", checkPressedKey);
+
+function updateScore(event)
+{
+	var points = event.detail;
+	var pointsSection = document.getElementById("points");
+	pointsSection.innerHTML = points;
+	if (points === 5){
+		pointsSection.style.color = "#52cc00";
+	}
+	if (points === 10){
+		document.removeEventListener("validMove", updateScore);
+	}
+}
